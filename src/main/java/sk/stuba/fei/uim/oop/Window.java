@@ -22,7 +22,6 @@ public class Window {
         this.initFrame();
         this.initCanvas();
         this.initMenu();
-        this.initGame();
     }
 
     private void initFrame(){
@@ -40,6 +39,7 @@ public class Window {
         canvas = new MazeCanvas();
         canvas.setSize(new Dimension(700, 700));
         canvas.setBackground(Color.DARK_GRAY);
+        canvas.setFocusable(true);
         panel.add(canvas);
     }
 
@@ -74,9 +74,5 @@ public class Window {
         panel.add(leftButton);
         panel.add(downButton);
         panel.add(rightButton);
-    }
-
-    private void initGame(){
-        this.game = new Game(canvas);
     }
 }

@@ -8,13 +8,36 @@ import java.util.ArrayList;
 public class MazeCanvas extends Canvas implements KeyListener {
 
     private ArrayList<Block> maze;
+    private Game game;
+    private Block playerPos;
+    private Block endPos;
 
-    public void keyPressed(KeyEvent event){}
+    public void keyPressed(KeyEvent event){
+        int keyCode = event.getKeyCode();
+
+        if(keyCode == 37){  //left
+            this.playerPos = game.playerMove("Left");
+        }
+
+        if(keyCode == 38){  //up
+            this.playerPos = game.playerMove("Up");
+        }
+
+        if(keyCode == 39){  //right
+            this.playerPos = game.playerMove("Right");
+        }
+
+        if(keyCode == 40){  //down
+            this.playerPos = game.playerMove("Down");
+        }
+        repaint();
+    }
     public void keyReleased(KeyEvent event){}
     public void keyTyped(KeyEvent event){}
 
     public MazeCanvas(){
         addKeyListener(this);
+        initGame();
     }
 
     public void paint(Graphics g){
@@ -37,14 +60,23 @@ public class MazeCanvas extends Canvas implements KeyListener {
             }
         }
 
-        var start_block = maze.get(0);
-        g.setColor(Color.RED);
-        g.fillRect(start_block.get_i(), start_block.get_j(), start_block.get_i()+40, start_block.get_j()+40);
+        //paint actual pos
+        g.setColor(Color.YELLOW);
+        g.fillRect(playerPos.get_i() * 40 + 10, playerPos.get_j() * 40 + 10, 20, 20);
 
+        //paint finish pos
+        g.setColor(Color.GREEN);
+        g.fillRect(endPos.get_i()*40 + 5, endPos.get_j()*40 + 5, 35, 35);
     }
 
     public void setMaze(ArrayList<Block> maze){
         this.maze = maze;
+    }
+
+    private void initGame(){
+        this.game = new Game(this);
+        playerPos = game.getPlayerPos();
+        endPos = game.getEndPos();
     }
 }
 
