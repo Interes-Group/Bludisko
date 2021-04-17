@@ -43,10 +43,10 @@ public class Maze {
             Block next = getNeighbor(current);
             if(next!=null){
                 next.setVisited();
+                stack.push(next);
                 removeWalls(current, next);
                 current = next;
                 visited++;
-                stack.push(current);
                 System.out.println("Stack " + stack.size() + " Visited: " + visited);
             }
             else{
@@ -64,7 +64,7 @@ public class Maze {
     }
 
     private int index(int i, int j){
-        if(i>0 || j>0 || i<mazeWidth-1 || j<mazeWidth-1){
+        if(i>=0 || j>=0 || i<=mazeWidth-1 || j<=mazeWidth-1){
             return i + j * mazeWidth;
         }
         else{

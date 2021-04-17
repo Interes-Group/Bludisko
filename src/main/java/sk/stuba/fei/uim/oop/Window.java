@@ -9,7 +9,8 @@ public class Window {
     private final int height;
     private JFrame frame;
     private JPanel panel;
-    private Canvas canvas;
+    private MazeCanvas canvas;
+    private Game game;
 
     public Window(){
         this(700, 900);
@@ -21,6 +22,7 @@ public class Window {
         this.initFrame();
         this.initCanvas();
         this.initMenu();
+        this.initGame();
     }
 
     private void initFrame(){
@@ -35,9 +37,9 @@ public class Window {
     }
 
     private void initCanvas(){
-        canvas = new Canvas();
-        canvas.setBackground(Color.darkGray);
+        canvas = new MazeCanvas();
         canvas.setSize(new Dimension(700, 700));
+        canvas.setBackground(Color.DARK_GRAY);
         panel.add(canvas);
     }
 
@@ -72,5 +74,9 @@ public class Window {
         panel.add(leftButton);
         panel.add(downButton);
         panel.add(rightButton);
+    }
+
+    private void initGame(){
+        this.game = new Game(canvas);
     }
 }
