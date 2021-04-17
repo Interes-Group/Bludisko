@@ -39,7 +39,7 @@ public class Maze {
         visited++;
         stack.push(current);
 
-        while(visited<mazeHeight*mazeHeight-1){
+        while(visited<mazeHeight*mazeHeight){
             Block next = getNeighbor(current);
             if(next!=null){
                 next.setVisited();
@@ -64,11 +64,11 @@ public class Maze {
     }
 
     private int index(int i, int j){
-        if(i>=0 || j>=0 || i<=mazeWidth-1 || j<=mazeWidth-1){
-            return i + j * mazeWidth;
+        if(i<0 || j<0 || i>mazeWidth-1 || j>mazeHeight-1){
+            return -9999;
         }
         else{
-            return -9999;
+            return i + (j * mazeWidth);
         }
     }
 
@@ -82,11 +82,11 @@ public class Maze {
         Block bottom = null;
         Block left = null;
 
-        if(index(block.get_i(), block.get_j()-1)>=0 && index(block.get_i(), block.get_j()+1)<196){
+        if(index(block.get_i(), block.get_j()-1)>=0 && index(block.get_i(), block.get_j()-1)<196){
             top = grid.get(index(block.get_i(), block.get_j()-1));
         }
 
-        if(index(block.get_i()+1, block.get_j())>=0 && index(block.get_i(), block.get_j()+1)<196){
+        if(index(block.get_i()+1, block.get_j())>=0 && index(block.get_i()+1, block.get_j())<196){
             right = grid.get(index(block.get_i()+1, block.get_j()));
         }
 
@@ -94,7 +94,7 @@ public class Maze {
             bottom = grid.get(index(block.get_i(), block.get_j()+1));
         }
 
-        if(index(block.get_i()-1, block.get_j())>=0 && index(block.get_i(), block.get_j()+1)<196){
+        if(index(block.get_i()-1, block.get_j())>=0 && index(block.get_i()-1, block.get_j())<196){
             left = grid.get(index(block.get_i()-1, block.get_j()));
         }
 

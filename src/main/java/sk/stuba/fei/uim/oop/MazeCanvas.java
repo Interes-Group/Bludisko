@@ -35,8 +35,12 @@ public class MazeCanvas extends Canvas implements KeyListener {
             if (tempBlock.getLeftWall()) {
                 g.drawLine(tempBlock.get_i() * 40, tempBlock.get_j() * 40 + 40, tempBlock.get_i() * 40, tempBlock.get_j() * 40);
             }
-
         }
+
+        var start_block = maze.get(0);
+        g.setColor(Color.RED);
+        g.fillRect(start_block.get_i(), start_block.get_j(), start_block.get_i()+40, start_block.get_j()+40);
+
     }
 
     public void setMaze(ArrayList<Block> maze){

@@ -57,7 +57,7 @@ public class Block {
     }
 
     public boolean isVisited(){
-        return visited;
+        return this.visited;
     }
 
     public void setVisited(){
@@ -69,18 +69,18 @@ public class Block {
     }
 
     public void removeTopWall(){
-        top_wall = false;
+        this.top_wall = false;
     }
 
     public void removeRightWall(){
-        right_wall = false;
+        this.right_wall = false;
     }
 
     public void removeDownWall(){
-        down_wall = false;
+        this.down_wall = false;
     }
 
     public void removeLeftWall(){
-        left_wall = false;
+        this.left_wall = false;
     }
 }
