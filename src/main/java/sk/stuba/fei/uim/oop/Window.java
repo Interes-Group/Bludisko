@@ -81,6 +81,6 @@ public class Window {
         panel.add(leftButton);
         panel.add(downButton);
         panel.add(rightButton);
-
+        canvas.initGame();
     }
 }

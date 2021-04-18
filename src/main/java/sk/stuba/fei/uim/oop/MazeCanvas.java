@@ -13,7 +13,7 @@ public class MazeCanvas extends Canvas implements KeyListener, ActionListener {
     private Game game;
     private Block playerPos;
     private Block endPos;
-    private int level_counter = 1;
+    private int level_counter;
 
     private static final int POS_MID = 65;
 
@@ -47,12 +47,38 @@ public class MazeCanvas extends Canvas implements KeyListener, ActionListener {
 
 
     public void actionPerformed(ActionEvent button_event){
-        System.out.println("Test");
+        var button = button_event.getActionCommand();
+
+        if(button.equals("UP")){
+            this.playerPos = game.playerMove("Up");
+            repaint();
+        }
+
+        if(button.equals("RIGHT")){
+            this.playerPos = game.playerMove("Right");
+            repaint();
+        }
+
+        if(button.equals("DOWN")){
+            this.playerPos = game.playerMove("Down");
+            repaint();
+        }
+
+        if(button.equals("LEFT")){
+            this.playerPos = game.playerMove("Left");
+            repaint();
+        }
+
+        if(button.equals("RESTART")){
+            this.level_counter = 1;
+            initGame();
+            repaint();
+        }
     }
 
     public MazeCanvas(){
         addKeyListener(this);
-        initGame();
+        this.level_counter = 1;
     }
 
     public void paint(Graphics g){
@@ -91,7 +117,7 @@ public class MazeCanvas extends Canvas implements KeyListener, ActionListener {
         this.maze = maze;
     }
 
-    private void initGame(){
+    public void initGame(){
         this.game = new Game(this);
         playerPos = game.getPlayerPos();
         endPos = game.getEndPos();
