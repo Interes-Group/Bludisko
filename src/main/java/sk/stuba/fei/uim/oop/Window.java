@@ -32,6 +32,7 @@ public class Window {
         frame.setVisible(true);
         frame.setResizable(false);
         panel = new JPanel();
+        panel.setBackground(Color.lightGray);
         frame.add(panel);
     }
 
@@ -41,38 +42,45 @@ public class Window {
         canvas.setBackground(Color.DARK_GRAY);
         canvas.setFocusable(true);
         panel.add(canvas);
+        canvas.createBufferStrategy(2);
     }
 
     private void initMenu(){
         JButton upButton = new JButton("UP");
         upButton.setPreferredSize(new Dimension(200, 65));
         upButton.setFocusable(false);
+        upButton.addActionListener(canvas);
 
         JButton leftButton = new JButton("LEFT");
         leftButton.setPreferredSize(new Dimension(200, 65));
         leftButton.setFocusable(false);
+        leftButton.addActionListener(canvas);
 
         JButton downButton = new JButton("DOWN");
         downButton.setPreferredSize(new Dimension(200, 65));
         downButton.setFocusable(false);
+        downButton.addActionListener(canvas);
 
         JButton rightButton = new JButton("RIGHT");
         rightButton.setPreferredSize(new Dimension(200, 65));
         rightButton.setFocusable(false);
+        rightButton.addActionListener(canvas);
 
         JButton restartButton = new JButton("RESTART");
         restartButton.setPreferredSize(new Dimension(200, 65));
         restartButton.setFocusable(false);
+        restartButton.addActionListener(canvas);
 
-        JLabel levelLabel = new JLabel("Level: ");
-        levelLabel.setPreferredSize(new Dimension(200, 65));
-        levelLabel.setFocusable(false);
+        JLabel label = new JLabel("");
+        label.setPreferredSize(new Dimension(200, 65));
+        label.setFocusable(false);
 
-        panel.add(levelLabel);
+        panel.add(label);
         panel.add(upButton);
         panel.add(restartButton);
         panel.add(leftButton);
         panel.add(downButton);
         panel.add(rightButton);
+
     }
 }

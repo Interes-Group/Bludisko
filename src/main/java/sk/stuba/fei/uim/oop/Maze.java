@@ -47,7 +47,6 @@ public class Maze {
                 removeWalls(current, next);
                 current = next;
                 visited++;
-                System.out.println("Stack " + stack.size() + " Visited: " + visited);
             }
             else{
                 current = stack.pop();
