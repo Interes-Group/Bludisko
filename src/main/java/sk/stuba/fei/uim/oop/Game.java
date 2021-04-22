@@ -59,4 +59,67 @@ public class Game {
             return i + (j * COLS);
         }
     }
+
+    private Block getTopBlock(Block block){
+        return maze.get(index(block.get_i(), block.get_j()-1));
+    }
+
+    private Block getBottomBlock(Block block){
+        return maze.get(index(block.get_i(), block.get_j()+1));
+    }
+
+    private Block getRightBlock(Block block){
+        return maze.get(index(block.get_i()+1, block.get_j()));
+    }
+
+    private Block getLeftBlock(Block block){
+        return maze.get(index(block.get_i()-1, block.get_j()));
+    }
+
+    public ArrayList<Block> getBlocksToMove(){
+        ArrayList<Block> movingBlocks = new ArrayList<>();
+
+        //get top blocks
+        var current = playerPos;
+        while(!current.getTopWall()){
+            movingBlocks.add(current);
+            current = getTopBlock(current);
+        }
+        movingBlocks.add(current);
+        movingBlocks.remove(playerPos);
+
+        //get bottom blocks
+        current = playerPos;
+        while(!current.getDownWall()){
+            movingBlocks.add(current);
+            current = getBottomBlock(current);
+        }
+        movingBlocks.add(current);
+        movingBlocks.remove(playerPos);
+
+        //get right blocks
+        current = playerPos;
+        while(!current.getRightWall()){
+            movingBlocks.add(current);
+            current = getRightBlock(current);
+        }
+        movingBlocks.add(current);
+        movingBlocks.remove(playerPos);
+
+        //get left blocks
+        current = playerPos;
+        while(!current.getLeftWall()){
+            movingBlocks.add(current);
+            current = getLeftBlock(current);
+        }
+        movingBlocks.add(current);
+        movingBlocks.remove(playerPos);
+
+        return movingBlocks;
+    }
+
+    public void setPlayerPos(Block s){
+        this.playerPos = s;
+    }
+
 }

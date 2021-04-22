@@ -146,6 +146,14 @@ public class Maze {
         }
     }
 
+    public int getMazeWidth(){
+        return this.mazeWidth;
+    }
+
+    public int getMazeHeight(){
+        return this.mazeHeight;
+    }
+
 }
 
 

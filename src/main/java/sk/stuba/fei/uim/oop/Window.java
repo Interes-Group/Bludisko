@@ -9,8 +9,10 @@ public class Window {
     private final int height;
     private JFrame frame;
     private JPanel panel;
+    private JLabel completed_label;
     private MazeCanvas canvas;
     private Game game;
+    private int game_counter;
 
     public Window(){
         this(700, 900);
@@ -22,6 +24,7 @@ public class Window {
         this.initFrame();
         this.initCanvas();
         this.initMenu();
+        this.game_counter = 0;
     }
 
     private void initFrame(){
@@ -37,7 +40,7 @@ public class Window {
     }
 
     private void initCanvas(){
-        canvas = new MazeCanvas();
+        canvas = new MazeCanvas(this);
         canvas.setSize(new Dimension(700, 700));
         canvas.setBackground(Color.DARK_GRAY);
         canvas.setFocusable(true);
@@ -71,9 +74,10 @@ public class Window {
         restartButton.setFocusable(false);
         restartButton.addActionListener(canvas);
 
-        JLabel label = new JLabel("");
+        JLabel label = new JLabel("Completed:    " + game_counter);
         label.setPreferredSize(new Dimension(200, 65));
         label.setFocusable(false);
+        this.completed_label = label;
 
         panel.add(label);
         panel.add(upButton);
@@ -82,5 +86,10 @@ public class Window {
         panel.add(downButton);
         panel.add(rightButton);
         canvas.initGame();
+    }
+
+    public void setGameCounter(int i){
+        this.game_counter = i;
+        this.completed_label.setText("Completed:    "+i);
     }
 }
