@@ -23,8 +23,8 @@ public class Window {
         this.width = width;
         this.initFrame();
         this.initCanvas();
-        this.initMenu();
         this.game_counter = 0;
+        this.initMenu();
     }
 
     private void initFrame(){

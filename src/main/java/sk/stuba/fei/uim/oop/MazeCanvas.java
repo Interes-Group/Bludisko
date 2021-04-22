@@ -29,6 +29,7 @@ public class MazeCanvas extends Canvas implements KeyListener, ActionListener, M
     public void keyPressed(KeyEvent event){
         int keyCode = event.getKeyCode();
         moving_blocks.clear();
+        click_num = 0;
 
         if(keyCode == 37){  //left
             this.playerPos = game.playerMove("Left");
@@ -59,6 +60,7 @@ public class MazeCanvas extends Canvas implements KeyListener, ActionListener, M
     public void actionPerformed(ActionEvent button_event){
         var button = button_event.getActionCommand();
         moving_blocks.clear();
+        click_num = 0;
 
         if(button.equals("UP")){
             this.playerPos = game.playerMove("Up");
@@ -126,7 +128,6 @@ public class MazeCanvas extends Canvas implements KeyListener, ActionListener, M
                 repaint();
                 click_num = 0;
             }
-
         }
     }
 
