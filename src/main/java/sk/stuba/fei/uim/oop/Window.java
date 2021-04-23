@@ -24,7 +24,6 @@ public class Window {
         this.initFrame();
         this.initCanvas();
         this.game_counter = 0;
-        this.initMenu();
     }
 
     private void initFrame(){
@@ -35,7 +34,9 @@ public class Window {
         frame.setVisible(true);
         frame.setResizable(false);
         panel = new JPanel();
+        panel.setVisible(true);
         panel.setBackground(Color.lightGray);
+        panel.setLayout(new BorderLayout());
         frame.add(panel);
     }
 
@@ -44,47 +45,47 @@ public class Window {
         canvas.setSize(new Dimension(700, 700));
         canvas.setBackground(Color.DARK_GRAY);
         canvas.setFocusable(true);
-        panel.add(canvas);
-        canvas.createBufferStrategy(3);
+        JPanel canvas_panel = new JPanel();
+        panel.add(canvas, BorderLayout.PAGE_START);
+        canvas.createBufferStrategy(2);
+        this.initMenu();
     }
 
     private void initMenu(){
         JButton upButton = new JButton("UP");
-        upButton.setPreferredSize(new Dimension(200, 65));
         upButton.setFocusable(false);
         upButton.addActionListener(canvas);
 
         JButton leftButton = new JButton("LEFT");
-        leftButton.setPreferredSize(new Dimension(200, 65));
         leftButton.setFocusable(false);
         leftButton.addActionListener(canvas);
 
         JButton downButton = new JButton("DOWN");
-        downButton.setPreferredSize(new Dimension(200, 65));
         downButton.setFocusable(false);
         downButton.addActionListener(canvas);
 
         JButton rightButton = new JButton("RIGHT");
-        rightButton.setPreferredSize(new Dimension(200, 65));
         rightButton.setFocusable(false);
         rightButton.addActionListener(canvas);
 
         JButton restartButton = new JButton("RESTART");
-        restartButton.setPreferredSize(new Dimension(200, 65));
         restartButton.setFocusable(false);
         restartButton.addActionListener(canvas);
 
-        JLabel label = new JLabel("Completed:    " + game_counter);
-        label.setPreferredSize(new Dimension(200, 65));
+        JLabel label = new JLabel("Completed:    " + game_counter, SwingConstants.CENTER);
         label.setFocusable(false);
         this.completed_label = label;
 
-        panel.add(label);
-        panel.add(upButton);
-        panel.add(restartButton);
-        panel.add(leftButton);
-        panel.add(downButton);
-        panel.add(rightButton);
+        JPanel panel_menu = new JPanel();
+        panel_menu.setLayout(new GridLayout(2, 3));
+        panel_menu.add(label);
+        panel_menu.add(upButton);
+        panel_menu.add(restartButton);
+        panel_menu.add(leftButton);
+        panel_menu.add(downButton);
+        panel_menu.add(rightButton);
+        panel_menu.setVisible(true);
+        panel.add(panel_menu, BorderLayout.CENTER);
         canvas.initGame();
     }
 

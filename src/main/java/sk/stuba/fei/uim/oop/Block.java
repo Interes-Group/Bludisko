@@ -24,13 +24,6 @@ public class Block {
 
     }
 
-    public int getCols(){
-        return i;
-    }
-
-    public int getRows(){
-        return j;
-    }
 
     public boolean getTopWall(){
         return top_wall;
@@ -62,10 +55,6 @@ public class Block {
 
     public void setVisited(){
         this.visited = true;
-    }
-
-    public void setNeighbours(ArrayList<Block> neighbours){
-        this.neighbours = neighbours;
     }
 
     public void removeTopWall(){
