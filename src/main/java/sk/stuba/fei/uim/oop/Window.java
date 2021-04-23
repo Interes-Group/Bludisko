@@ -23,6 +23,7 @@ public class Window {
         this.width = width;
         this.initFrame();
         this.initCanvas();
+        this.initMenu();
         this.game_counter = 0;
     }
 
@@ -35,7 +36,6 @@ public class Window {
         frame.setResizable(false);
         panel = new JPanel();
         panel.setVisible(true);
-        panel.setBackground(Color.lightGray);
         panel.setLayout(new BorderLayout());
         frame.add(panel);
     }
@@ -45,10 +45,9 @@ public class Window {
         canvas.setSize(new Dimension(700, 700));
         canvas.setBackground(Color.DARK_GRAY);
         canvas.setFocusable(true);
-        JPanel canvas_panel = new JPanel();
         panel.add(canvas, BorderLayout.PAGE_START);
         canvas.createBufferStrategy(2);
-        this.initMenu();
+        canvas.initGame();
     }
 
     private void initMenu(){
@@ -85,8 +84,9 @@ public class Window {
         panel_menu.add(downButton);
         panel_menu.add(rightButton);
         panel_menu.setVisible(true);
+        panel_menu.validate();
         panel.add(panel_menu, BorderLayout.CENTER);
-        canvas.initGame();
+        panel.validate();
     }
 
     public void setGameCounter(int i){
