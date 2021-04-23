@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
-public class MazeCanvas extends Canvas implements KeyListener, ActionListener, MouseListener {
+public class MazeCanvas extends Canvas implements KeyListener, ActionListener, MouseListener, MouseMotionListener {
 
     private ArrayList<Block> maze;
     private Game game;
@@ -14,16 +14,19 @@ public class MazeCanvas extends Canvas implements KeyListener, ActionListener, M
     private final Window window;
     private int click_num;      //0 -> select point, 1 -> select position you want to move to
     private ArrayList<Block> moving_blocks;
+    private Block tempBlock;
 
     private static final int POS_MID = 65;
 
     public MazeCanvas(Window window){
         addKeyListener(this);
+        addMouseListener(this);
+        addMouseMotionListener(this);
         this.level_counter = 1;
         this.window = window;
-        addMouseListener(this);
         this.click_num = 0;
         this.moving_blocks = new ArrayList<>();
+        this.tempBlock = null;
     }
 
     public void keyPressed(KeyEvent event){
@@ -50,7 +53,7 @@ public class MazeCanvas extends Canvas implements KeyListener, ActionListener, M
             this.playerPos = game.playerMove("Down");
             repaint();
         }
-
+        tempBlock = null;
         checkIfEnd();
     }
     public void keyReleased(KeyEvent event){}
@@ -88,6 +91,7 @@ public class MazeCanvas extends Canvas implements KeyListener, ActionListener, M
             window.setGameCounter(0);
             repaint();
         }
+        tempBlock = null;
         checkIfEnd();
     }
 
@@ -115,12 +119,14 @@ public class MazeCanvas extends Canvas implements KeyListener, ActionListener, M
                     game.setPlayerPos(this.playerPos);
                     click_num = 0;
                     moving_blocks.clear();
+                    tempBlock = null;
                     repaint();
                     checkIfEnd();
                 }
                 else{
                     click_num = 0;
                     moving_blocks.clear();
+                    tempBlock = null;
                     repaint();
                 }
             }
@@ -135,6 +141,25 @@ public class MazeCanvas extends Canvas implements KeyListener, ActionListener, M
     public void mouseExited(MouseEvent mouse_event){}
     public void mousePressed(MouseEvent mouse_event){}
     public void mouseReleased(MouseEvent mouse_event){}
+
+    public void mouseDragged(MouseEvent e){}
+    public void mouseMoved(MouseEvent e){
+        if(click_num == 1){
+            Block forRepaintBlock = this.tempBlock;
+            var x = e.getX();
+            var y = e.getY();
+            for(Block s: moving_blocks){
+                forRepaintBlock = this.tempBlock;
+                if((x>s.get_i()*40+POS_MID) && (x<s.get_i()*40+40+POS_MID) && (y>s.get_j()*40+POS_MID) && (y<s.get_j()*40+40+POS_MID)){
+                    this.tempBlock = s;
+                    break;
+                }
+            }
+            if(forRepaintBlock!=this.tempBlock){    //to not repaint every time you move mouse, but only when block is changed -> not blinking
+                repaint();
+            }
+        }
+    }
 
 
     public void paint(Graphics g){
@@ -174,6 +199,12 @@ public class MazeCanvas extends Canvas implements KeyListener, ActionListener, M
             for(Block s: moving_blocks){
                 g.fillRect(s.get_i()*40 + 5 + POS_MID, s.get_j()*40 + 5 + POS_MID, 35, 35);
             }
+        }
+
+        //paint tempBlock
+        g.setColor(Color.cyan);
+        if(tempBlock!=null){
+            g.fillRect(tempBlock.get_i()*40 + 5 + POS_MID, tempBlock.get_j()*40 + 5 + POS_MID, 35, 35);
         }
     }
 

@@ -45,7 +45,7 @@ public class Window {
         canvas.setBackground(Color.DARK_GRAY);
         canvas.setFocusable(true);
         panel.add(canvas);
-        canvas.createBufferStrategy(2);
+        canvas.createBufferStrategy(3);
     }
 
     private void initMenu(){

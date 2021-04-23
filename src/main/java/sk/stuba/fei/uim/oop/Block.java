@@ -4,8 +4,8 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Block {
-    private final int i;    //columns
-    private final int j;    //rows
+    private final int i;    //column in maze
+    private final int j;    //row in maze
     private boolean top_wall;
     private boolean right_wall;
     private boolean down_wall;
